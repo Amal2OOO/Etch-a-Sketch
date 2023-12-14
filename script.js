@@ -11,4 +11,9 @@ for(let i = 0; i < gridSquare; i++) {
   gridElement.style.height = grid.clientHeight / gridQuantity + 'px';
   gridElement.style.width = grid.clientWidth / gridQuantity + 'px';
   grid.appendChild(gridElement);
+
+  gridElement.addEventListener('mouseover', () => {
+    gridElement.style.backgroundColor = 'black';
+  });
 }
+
