@@ -4,6 +4,7 @@ const gridSize = document.querySelector('.gridSize');
 const rainbow = document.querySelector('.rainbow');
 const blackBtn = document.querySelector('.blackBtn');
 const grayScaleBtn = document.querySelector('.grayScaleBtn');
+const eraserBtn = document.querySelector('.eraserBtn');
 
 
 let colorMode = 'black';
@@ -29,6 +30,8 @@ function  changeColor() {
   pixels.forEach(pixel => pixel.addEventListener('mouseover', () => {
     if(colorMode === 'black') {
       return pixel.style.backgroundColor = 'black';
+    } else if(colorMode === 'eraser') {
+      return pixel.style.backgroundColor = 'white';
     } else if(colorMode === 'rainbow') {
       return pixel.style.backgroundColor = rainbowColor();
     } else if(colorMode === 'gray') {
@@ -49,7 +52,8 @@ function rainbowColor() {
 
 rainbow.addEventListener('click', () => {colorMode = 'rainbow'});
 blackBtn.addEventListener('click', () => {colorMode = 'black'});
-grayScaleBtn.addEventListener('click', () => {colorMode = 'gray'})
+eraserBtn.addEventListener('click', () => {colorMode = 'eraser'});
+grayScaleBtn.addEventListener('click', () => {colorMode = 'gray'});
 gridSize.addEventListener('click', () => {
   gridQuantity = Number(prompt('Enter grid size:'));
   while(grid.firstChild) {
