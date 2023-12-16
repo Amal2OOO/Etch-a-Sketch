@@ -2,7 +2,9 @@
 const grid = document.querySelector('.grid');
 const gridSize = document.querySelector('.gridSize');
 const rainbow = document.querySelector('.rainbow');
-const blackBtn = document.querySelector('.blackBtn')
+const blackBtn = document.querySelector('.blackBtn');
+const grayScaleBtn = document.querySelector('.grayScaleBtn');
+
 
 let colorMode = 'black';
 let gridQuantity = 10;
@@ -17,19 +19,23 @@ function createGrid() {
     gridElement.style.height = grid.clientHeight / gridQuantity + 'px';
     gridElement.style.width = grid.clientWidth / gridQuantity + 'px';
     grid.appendChild(gridElement);
-
-    gridElement.addEventListener('mouseover', () => {
-      gridElement.style.backgroundColor = setColor(colorMode);
-    });
   }
+  changeColor(colorMode);
 }
 
-function setColor() {
-  if(colorMode === 'black') {
-    return 'black';
-  } else {
-    return rainbowColor();
-  }
+function  changeColor() {
+  let pixels = document.querySelectorAll('.gridElement');
+
+  pixels.forEach(pixel => pixel.addEventListener('mouseover', () => {
+    if(colorMode === 'black') {
+      return pixel.style.backgroundColor = 'black';
+    } else if(colorMode === 'rainbow') {
+      return pixel.style.backgroundColor = rainbowColor();
+    } else if(colorMode === 'gray') {
+      let num = Number(pixel.style.backgroundColor.slice(-4, -1));
+      return pixel.style.backgroundColor = `rgba(0, 0, 0, ${num + 0.1}`;
+    }
+  }));  
 }
 
 function rainbowColor() {
@@ -43,6 +49,7 @@ function rainbowColor() {
 
 rainbow.addEventListener('click', () => {colorMode = 'rainbow'});
 blackBtn.addEventListener('click', () => {colorMode = 'black'});
+grayScaleBtn.addEventListener('click', () => {colorMode = 'gray'})
 gridSize.addEventListener('click', () => {
   gridQuantity = Number(prompt('Enter grid size:'));
   while(grid.firstChild) {
